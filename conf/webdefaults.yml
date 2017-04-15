@@ -1,0 +1,4 @@
+---
+apache_varsion: 2.6
+apache_mod_req: mod_ssl
+pkg_git: git

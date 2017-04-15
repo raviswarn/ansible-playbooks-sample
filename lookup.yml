@@ -1,0 +1,9 @@
+--- # LOOKUP PLAYBOOK EXAMPLE
+- hosts: apacheweb
+  user: test
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: lookup of variable
+     debug: msg="{{ lookup('env', 'USER') }} is the value listed" 
