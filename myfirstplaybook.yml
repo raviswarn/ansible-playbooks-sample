@@ -1,5 +1,5 @@
 --- # My First YML playbook for ansible
-- hosts: all
+- hosts: apacheweb
   user: test
   become: yes
   connection: ssh
@@ -10,16 +10,12 @@
     - conf/copyright.yml
     - conf/webdefaults.yml
   vars_prompt:
-    - name: pkg_name
+    - name: Web_domain
       prompt: Which Package??
   tasks:
     - name: Install Apache Web Server
       action: yum name=httpd state=installed
-      async: 300 
-      poll: 3
       notify: Restart HTTPD
-    - name: Install the Package
-      action: yum name={{pkg_name}} state=installed
   handlers:
     - name: Restart HTTPD
       action: service name=httpd state=restarted
