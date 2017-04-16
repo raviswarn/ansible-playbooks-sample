@@ -1,0 +1,6 @@
+- name: Install the apachewebserver
+  yum: pkg=httpd state=latest
+  notify: Restart HTTPD
+- name: Install the git
+  yum: pkg=git state=latest
+

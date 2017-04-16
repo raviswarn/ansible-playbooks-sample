@@ -1,0 +1,2 @@
+- name: make sure git is isntalled and log in
+  raw: yum list installed | grep git > /home/test/install.log

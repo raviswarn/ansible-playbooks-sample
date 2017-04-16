@@ -1,0 +1,21 @@
+--- # The Waitfor Module Example
+- hosts: web
+  become: yes
+  connection: ssh
+  user: test
+  gather_facts: no
+  tasks:
+    - name: Installing Apache Tomcat
+      action: yum name=tomcat state=installed
+      notify: Restart Tomcat
+   
+  handlers:
+    - name: Restart Tomcat
+      action: service name=tomcat state=restarted
+
+    - name: Waiting for the PORT 8080 listen
+      wait_for:
+         port: 8080
+         state: started
+    - name: Verifying the git installation
+      action: yum name=git state=present

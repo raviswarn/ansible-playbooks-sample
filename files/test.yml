@@ -1,0 +1,13 @@
+--- # TESTING the j2 template module
+- hosts: apacheweb,web
+  user: test
+  connection: ssh
+  become: yes
+  gather_facts: yes
+  vars:
+    userName: test
+    userPassword: password123
+    connectionType: SFTP
+  tasks:
+   - name: Install the configuration file customized for the system
+     template: src=test.conf.j2 dest=/home/test/test.conf owner=test group=test mode=0755

@@ -1,0 +1,13 @@
+--- # DELEGATE TO FUNCTION DEMO
+- hosts: web
+  user: test
+  connection: ssh
+  become: yes
+  tasks:
+   - name: Run a remote ping on the application server
+     command: ping -c 4 swarnaravistar5
+     delegate_to: 127.0.0.1
+   - name: install a package
+     yum: pkg=git state=latest
+
+  

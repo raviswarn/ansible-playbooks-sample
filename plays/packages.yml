@@ -1,0 +1,5 @@
+- name: Install the telnet client
+  yum: pkg=httpd state=latest
+- name: Install git
+  yum: pkg=telnet state=latest
+

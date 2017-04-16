@@ -1,0 +1,10 @@
+--- # VERAIBLE COMMAND LINE PASSING EXAMPLE
+- hosts: '{{hosts}}'
+  user: '{{user}}'
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: Install some software client
+     yum: pkg={{pkg}} state=latest
+   

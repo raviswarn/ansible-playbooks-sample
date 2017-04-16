@@ -1,0 +1,15 @@
+--- # PAUSE Playbook Example
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: Install httpd
+     yum: pkg=httpd state=latest
+   - name: Pausing
+     pause:
+       prompt: "Make sure the installation is complete..."
+   - name: Verify git installation
+     yum: pkg=git state=latest
+     
