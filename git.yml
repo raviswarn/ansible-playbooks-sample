@@ -1,0 +1,6 @@
+--- # GIT Module Example
+- hosts: web
+  user: test
+  tasks:
+   - name: cloning git repo
+     git: repo=https://github.com/swarnaravi/puppet-ssh.git dest=/home/test/gitrepo 

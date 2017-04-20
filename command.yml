@@ -1,0 +1,10 @@
+--- # COMMAND Module Example
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  tasks:
+   - name: Cechk for python packages
+     command: /home/test/testing/test.sh
+     args:
+       chdir: /home/test/testing

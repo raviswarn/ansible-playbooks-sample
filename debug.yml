@@ -1,0 +1,13 @@
+--- # DEBUG Module Example
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  tasks:
+   - name: Install the Web Server
+     yum: name=httpd state=installed
+   - debug: msg="Equavalent of sudo yum install httpd"
+   - name: how log has the system been up?
+     shell: /usr/bin/uptime
+     register: result
+   - debug: var=result

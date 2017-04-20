@@ -1,0 +1,11 @@
+--- # STAT MODULE EXAMPLE
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+  - stat: path=/home/test/abc
+    register: result
+  - debug: msg="The Path Exists and is a Directory"
+    when: result.stat.isdir is defined and result.stat.isdir

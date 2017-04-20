@@ -1,0 +1,9 @@
+--- # AT MODULE EXAMPLE
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Example of a future command with the AT module
+      at: command="ls /var/log > /home/test/at1.log" count=10 units="minutes"

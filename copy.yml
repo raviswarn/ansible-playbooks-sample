@@ -1,0 +1,8 @@
+--- # COPY Module Example
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  tasks:
+    - name: Copy from the files directory test file
+      action: copy src=files/test4.txt dest=/home/test/test4.txt owner=test group=test mode=0655 backup=yes

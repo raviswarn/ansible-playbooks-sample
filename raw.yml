@@ -1,0 +1,9 @@
+--- # RAW MODULE EXAMPLE
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Find the system uptime for the 'hosts' above
+      raw: /usr/bin/uptime > uptime.log

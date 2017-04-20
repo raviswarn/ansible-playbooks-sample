@@ -1,0 +1,9 @@
+--- # PACKAGE Module Example
+- hosts: web
+  become: yes
+  user: test
+  connection: ssh
+  tasks:
+   - name: install apache web server
+     package: name=telnet state=latest
+

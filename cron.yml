@@ -1,0 +1,7 @@
+--- # CRON Module Playbook
+- hosts: web
+  user: test
+  connection: ssh
+  tasks:
+   - name: Add Cron job to the test user
+     cron: name="list_files" minute="0" hour="1" job="ls -al /etc > /home/test/cronresults.log"
