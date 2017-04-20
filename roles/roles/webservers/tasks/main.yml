@@ -1,0 +1,3 @@
+- name: install apache webserver
+  yum: pkg=httpd state=latest
+  notify: Restart HTTPD

@@ -1,0 +1,13 @@
+--- # Master Webserve Playbook
+- hosts: web
+  user: test
+  become: yes
+  connection: ssh
+  pre_tasks:
+  - name: How long the role module took to run
+    raw: date > /home/test/startorole.log
+  roles:
+    - webservers
+  post_tasks:
+  - name: when did the role end
+    raw: date > /home/test/endrole.log
