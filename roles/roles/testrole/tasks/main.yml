@@ -1,0 +1,17 @@
+- name: install the apache web server
+  action: yum name=httpd state=installed
+  notify: Restart HTTPD
+- name: Add a list of software
+  yum: pkg={{item}} state=latest
+  with_items:
+   - svn
+   - git
+- name: verify that the web server running
+  command: systemctl status httpd
+  register: result
+  ignore_errors: yes
+- name: log all the packages install on the system
+  command: yum list installed
+  register: installed_result
+- debug: var=result
+- debug: var=installed_result

@@ -1,0 +1,32 @@
+--- # Outline to Playbook translation
+- hosts: apacheweb
+  user: test
+  become: yes
+  gather_facts: no
+  tasks: 
+  - name: data/time stamp for when the playbook start
+    command: /usr/bin/date
+    register: timestamp_start
+  - debug: var=timestamp_start
+  - name: install the apache web server
+    action: yum name=httpd state=installed
+    notify: Restart HTTPD
+  - name: verify that the web server running
+    command: systemctl status httpd
+    register: result
+  - debug: var=result
+  - name: install client software
+    yum: pkg=telnet state=latest
+  - name: install client software - git
+    yum: pkg=git state=latest
+  - name: log all the packages install on the system
+    command: yum list installed
+    register: installed_result
+  - debug: var=installed_result  
+  - name: data/time stamp for whn the playbook ends
+    command: /usr/bin/date
+    register: timestamp_end
+  - debug: var=timestamp_end
+  handlers:
+  - name: Restart HTTPD
+    action: service name=httpd state=restarted

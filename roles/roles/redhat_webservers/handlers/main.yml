@@ -1,4 +1,5 @@
 - name: Restart HTTPD
   service: name={{redhat_apache}} state=restarted
   when: "ansible_os_family == 'RedHat'"
- 
+- name: InstallGit
+  yum: pkg=git state=latest 

@@ -7,7 +7,7 @@
   - name: How long the role module took to run
     raw: date > /home/test/startorole.log
   roles:
-    - { role: redhat_webservers. when: "ansible_os_family == 'RedHat'" }
+    - { role: redhat_webservers, when: "ansible_os_family == 'RedHat'" }
   post_tasks:
   - name: when did the role end
     raw: date > /home/test/endrole.log
