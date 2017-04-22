@@ -1,0 +1,11 @@
+--- # Master demonstrating delegate command Playbook
+- hosts: centos
+  user: test
+  become: yes
+  connection: ssh
+  pre_tasks:
+  - name: Ping the application server
+    raw: ping -c 4 swarnaravistar5 > /home/test/Playbooks/roles/roles/ping.out
+    delegate_to: 127.0.0.1
+  roles:
+    - webservers

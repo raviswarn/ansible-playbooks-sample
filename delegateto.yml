@@ -5,7 +5,7 @@
   become: yes
   tasks:
    - name: Run a remote ping on the application server
-     command: ping -c 4 swarnaravistar5
+     command: ping -c 4 swarnaravistar5 /home/test/Playbooks/role/role/ping.out
      delegate_to: 127.0.0.1
    - name: install a package
      yum: pkg=git state=latest
