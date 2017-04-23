@@ -1,0 +1,7 @@
+- name: StartHTTPD
+  service: name={{apache_pkg}} state=restarted
+- name: TestHttpd
+  shell: curl http://{{apache_fqdn}}
+  register: result
+- name: DisplayResult
+  debug: var=result

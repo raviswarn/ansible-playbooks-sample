@@ -1,0 +1,50 @@
+--- # File System Playbook
+- hosts: databases
+  user: test
+  become: yes
+  connection: ssh
+  vars:
+   distribution: RedHat
+   nfsutils_pkg: nfs-utils
+   nfslibs_pkg: nfs-utils-lib
+   nfsserver_service: nfs-server
+   nfslock_service: nfs-lock
+   nfsmap_service: nfs-idmap
+   rpcbind_service: rcpbind
+  tasks:
+   - name: install the NFS server and utinls
+     yum: pkg=nfs-utils state=latest
+   - name: install the NFS server libraries
+     yum: pkg=nfs-utils-lib state=latest
+   - name: copy the export files to the remote server
+     copy: src=files/exports.template dest=/etc/exports owner=root group=root mode=644
+   - name: Start the RPC bind service
+     service: name=rpcbind state=started
+   - name: Start the NFS server service
+     service: name=nfs-server state=started
+   - name: Start the file lock service
+     service: name=nfs-lock state=started
+   - name: Start the NFS map servic
+     service: name=nfs-idmap state=started
+   - name: install the NFS client and Utilities
+     yum: pkg=nfs-utils state=latest
+     delegate_to: 127.0.0.1
+   - name: install the NFS client libraries
+     yum: pkg=nfs-utils-lib state=latest   
+     delegate_to: 127.0.0.1
+   - name: install the NFS Client RPC
+     service: name=rpcbind state=started
+     delegate_to: 127.0.0.1
+   - name: Start the NFS Client file lock service
+     service: name=nfs-lock state=started
+     delegate_to: 127.0.0.1
+   - name: Start the NFS Client Map service
+     service: name=nfs-idmap state=started
+     delegate_to: 127.0.0.1
+   - name: Create client mount direcoty
+     file: path=/mnt/remote state=directory mode=755
+     delegate_to: 127.0.0.1
+   - name: Mount the filesystem on the client from the NFS server
+     mount: name=/mnt/remote src=/var/share fstype=nfs state=present
+     delegate_to: 127.0.0.1
+  

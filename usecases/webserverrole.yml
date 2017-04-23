@@ -1,5 +1,5 @@
---- # Master Webserve Playbook
-- hosts: appservers
+--- # Master Playbook Role based apache web deployment
+- hosts: appserver
   user: test
   become: yes
   connection: ssh
@@ -7,7 +7,7 @@
   - name: How long the role module took to run
     raw: date > /home/test/startorole.log
   roles:
-    - { role: redhat_webservers, when: "ansible_os_family == 'RedHat'" }
+    - redhat.apachewebserver
   post_tasks:
   - name: when did the role end
     raw: date > /home/test/endrole.log

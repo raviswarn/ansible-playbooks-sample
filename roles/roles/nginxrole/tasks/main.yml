@@ -1,0 +1,13 @@
+- name: install nginx
+  yum: pkg=nginx state=latest update_cache=yes
+- name: copy nginx config file
+  copy: src=files/nginx.conf dest=/etc/nginx/sites-available/default
+- name: enable configuration
+  file: >
+   dest=/etc/nginx/sites-enabled/default
+   src=/etc/nginx/sites-available/default
+   state=link owner=root group=root mode=0644
+  ignore_errors: yes
+- name: copy index.html
+  template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html owner=root group=root mode=0644
+  notify: restart nginx

@@ -1,0 +1,6 @@
+--- # Master Nginxrole Playbook
+- hosts: web
+  user: test
+  become: yes
+  roles: 
+   - nginxrole

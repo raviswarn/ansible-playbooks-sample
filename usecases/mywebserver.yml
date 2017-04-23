@@ -1,0 +1,32 @@
+--- # Build apache Web Server
+- hosts: appserver
+  user: test
+  become: yes
+  connection: ssh
+  vars:
+    apache_pkg: httpd
+    distribution: redhat
+    apache_version: 2.4
+    apache_dir: /var/www/sample
+    apache_fqdn: swarnaravistar3.mylabserver.com
+  tasks:
+    - name: Install Webserver Package
+      yum: pkg=httpd state=latest
+    - name: create webserver directory
+      file: path=/var/www/sample state=directory mode=644
+    - name: copy the apache configuration file to remote location
+      copy: src=files/httpd.conf.template dest=/etc/httpd/conf/httpd.conf owner=root group=root mode=644
+    - name: create the vhost directory on the remote host
+      file: path=/etc/httpd/vhost.d state=directory mode=0755
+    - name: copy and untar the source for the site
+      unarchive: src=files/sitecode.tar.gz dest=/var/www/sample
+    - name: copy the default vhost configuration fiel
+      copy: src=files/default.conf.template dest=/etc/httpd/vhost.d/default.conf owner=root group=root mode=0644
+    - name: start the webserve
+      service: name=httpd state=restarted
+      ignore_errors: yes
+    - name: test teh webserver
+      shell: curl http://swarnaravistar3.mylabserver.com
+      register: result
+    - name: display result
+      debug: var=result
